@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swift Studio — New Client Onboarding</title>
+<meta name="description" content="Tell us about your project. We'll take it from here.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface2: #f0f0ee;
+  --border: #e8e8e6;
+  --border2: #d8d8d5;
+  --text: #111111;
+  --text2: #555555;
+  --text3: #aaaaaa;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --accent-border: #bfdbfe;
+  --accent-light: #1d4ed8;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --font: 'DM Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Progress ─── */
+.progress-track {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--border); z-index: 200;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  transition: width 0.5s var(--ease);
+}
+
+/* ─── Topbar ─── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(247,247,245,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+.logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+.logo-main { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+.logo-sub { font-size: 7.5px; font-weight: 600; letter-spacing: 4px; color: var(--text3); margin-top: 3px; }
+.step-pill {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  display: none; box-shadow: var(--shadow);
+}
+.step-pill.visible { display: block; }
+.step-pill span { color: var(--text); }
+
+/* ─── Stage ─── */
+.stage {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 80px 24px 100px;
+}
+
+.slide {
+  display: none; width: 100%; max-width: 660px;
+  animation: appear 0.38s var(--ease) both;
+}
+.slide.active { display: block; }
+.slide.back { animation: appear-back 0.38s var(--ease) both; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes appear-back {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Welcome ─── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 24px;
+}
+.eyebrow::before {
+  content: ''; display: block; width: 18px;
+  height: 2px; background: var(--accent); border-radius: 2px;
+}
+.welcome-h1 {
+  font-size: clamp(34px, 5.5vw, 58px);
+  font-weight: 800; letter-spacing: -2px; line-height: 1.06;
+  margin-bottom: 20px; color: var(--text);
+}
+.welcome-h1 em { font-style: normal; color: var(--accent); }
+.welcome-body {
+  font-size: 16px; line-height: 1.65; color: var(--text2);
+  max-width: 480px; margin-bottom: 36px;
+}
+.welcome-chips {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 6px 14px;
+  font-size: 13px; color: var(--text2);
+  box-shadow: var(--shadow);
+}
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* ─── Question ─── */
+.q-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.q-title {
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 700; letter-spacing: -0.5px; line-height: 1.25;
+  margin-bottom: 8px;
+}
+.q-hint { font-size: 14px; color: var(--text2); line-height: 1.55; margin-bottom: 28px; }
+.q-multi-note {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 12px;
+}
+
+/* ─── Text inputs ─── */
+.field { margin-bottom: 4px; }
+input[type=text], input[type=email], input[type=url], textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 400;
+  padding: 14px 18px;
+  outline: none; resize: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  line-height: 1.5;
+  box-shadow: var(--shadow);
+}
+input:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+input::placeholder, textarea::placeholder { color: var(--text3); }
+
+/* Other text input inside choices */
+.other-input-wrap {
+  padding: 0 18px 14px;
+  display: none;
+}
+.other-input-wrap.show { display: block; }
+.other-input-wrap input {
+  font-size: 14px; padding: 9px 12px;
+  border-radius: 8px; box-shadow: none;
+}
+
+/* ─── Choices ─── */
+.choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 4px; }
+
+.choice {
+  display: flex; align-items: center; gap: 13px;
+  padding: 13px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.14s;
+  font-size: 14px; font-weight: 500;
+  color: var(--text2);
+  user-select: none;
+  box-shadow: var(--shadow);
+}
+.choice:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--text);
+  transform: translateX(2px);
+}
+.choice.selected {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent-light);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+}
+.choice.selected .kbd { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.kbd {
+  min-width: 24px; height: 24px;
+  border: 1.5px solid var(--border2);
+  border-radius: 6px;
+  font-size: 10px; font-weight: 700;
+  color: var(--text3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.14s;
+  background: var(--bg);
+}
+
+/* Other choice */
+.choice-other { flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
+.choice-other .choice-row {
+  display: flex; align-items: center; gap: 13px;
+  padding: 13px 16px; width: 100%;
+}
+.choice-other.selected .other-input-wrap { display: block; }
+
+/* ─── Actions ─── */
+.actions {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 28px; flex-wrap: wrap; flex-direction: row;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font); font-size: 14px; font-weight: 500;
+  padding: 11px 16px; border-radius: 10px;
+  cursor: pointer; border: 1.5px solid var(--border2);
+  background: var(--surface); color: var(--text3);
+  transition: all 0.14s; box-shadow: var(--shadow);
+}
+.back-btn:hover { color: var(--text2); border-color: var(--border2); }
+.back-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 11px 22px; border-radius: 10px;
+  cursor: pointer; border: none;
+  transition: all 0.14s; text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+}
+.btn-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+}
+.btn-ghost {
+  background: var(--surface); color: var(--text2);
+  border: 1.5px solid var(--border2);
+  box-shadow: var(--shadow);
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+.enter-hint { font-size: 12px; color: var(--text3); }
+.enter-hint kbd {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 4px; padding: 2px 6px;
+  font-size: 11px; font-family: var(--font); color: var(--text2);
+}
+
+/* ─── Field error ─── */
+.field-error { font-size: 12px; color: #dc2626; margin-top: 8px; display: none; }
+.field-error.show { display: block; }
+
+/* ─── Thank you ─── */
+.ty-icon {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: var(--green-bg); border: 2px solid #86efac;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin-bottom: 28px;
+  animation: pop 0.5s var(--ease);
+}
+@keyframes pop { from { transform: scale(0.5); opacity:0; } to { transform: scale(1); opacity:1; } }
+.ty-title { font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 14px; }
+.ty-body { font-size: 16px; color: var(--text2); line-height: 1.65; max-width: 420px; margin-bottom: 36px; }
+.ty-card {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px;
+  font-size: 14px; color: var(--text2); box-shadow: var(--shadow);
+}
+
+/* ─── Footer ─── */
+.footer {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(247,247,245,0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  z-index: 100;
+}
+.footer-nav { display: flex; gap: 6px; }
+.nav-arrow {
+  width: 34px; height: 34px;
+  border: 1.5px solid var(--border2); border-radius: 8px;
+  background: var(--surface); color: var(--text2);
+  font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.14s; box-shadow: var(--shadow);
+}
+.nav-arrow:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.nav-arrow:disabled { opacity: 0.25; cursor: not-allowed; }
+.footer-brand { font-size: 12px; color: var(--text3); }
+
+@media (max-width: 600px) {
+  .topbar, .footer { padding: 0 20px; }
+  .stage { padding: 72px 20px 80px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+<header class="topbar">
+  <a href="#" class="logo">
+    <span class="logo-main">Swift</span>
+    <span class="logo-sub">S T U D I O</span>
+  </a>
+  <div class="step-pill" id="stepPill"><span id="stepCurrent">1</span> of 11</div>
+</header>
+
+<main class="stage"><div style="width:100%;max-width:660px">
+
+  <!-- 0: Welcome -->
+  <div class="slide active" id="slide-0">
+    <div class="eyebrow">New Client Onboarding</div>
+    <h1 class="welcome-h1">Let's build something<br><em>great together.</em></h1>
+    <p class="welcome-body">A few quick questions so we understand your business and what you're looking for. No fluff — just the essentials.</p>
+    <div class="welcome-chips">
+      <div class="chip"><div class="chip-dot"></div>11 questions</div>
+      <div class="chip">⏱ ~3 minutes</div>
+      <div class="chip">No account needed</div>
+    </div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">Let's get started →</button>
+    </div>
+  </div>
+
+  <!-- 1: Name -->
+  <div class="slide" id="slide-1">
+    <div class="q-num">01 →</div>
+    <div class="q-title">What's your name?</div>
+    <div class="q-hint">First name is fine.</div>
+    <div class="field">
+      <input type="text" id="q1" placeholder="e.g. Alex" autocomplete="given-name"
+        onkeydown="if(event.key==='Enter')goNext()">
+    </div>
+    <div class="field-error" id="q1-err">Please enter your name.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+      <span class="enter-hint">or press <kbd>Enter ↵</kbd></span>
+    </div>
+  </div>
+
+  <!-- 2: Business -->
+  <div class="slide" id="slide-2">
+    <div class="q-num">02 →</div>
+    <div class="q-title">What's your business called, and what do you do?</div>
+    <div class="q-hint">Give us the quick pitch — name, what you do, who you serve.</div>
+    <div class="field">
+      <textarea id="q2" rows="3" placeholder="e.g. Peak Landscaping — we design and maintain residential gardens in Calgary."
+        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
+    </div>
+    <div class="field-error" id="q2-err">Tell us a bit about your business.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+      <span class="enter-hint">or <kbd>⌘ Enter</kbd></span>
+    </div>
+  </div>
+
+  <!-- 3: Existing site -->
+  <div class="slide" id="slide-3">
+    <div class="q-num">03 →</div>
+    <div class="q-title">Do you have an existing website?</div>
+    <div class="choices" id="q3">
+      <div class="choice" onclick="pick('q3',this,'yes-outdated')"><span class="kbd">A</span>Yes — but it's outdated and needs a full redo</div>
+      <div class="choice" onclick="pick('q3',this,'yes-ok')"><span class="kbd">B</span>Yes — it's okay but could use improvements</div>
+      <div class="choice" onclick="pick('q3',this,'no')"><span class="kbd">C</span>No — starting from scratch</div>
+      <div class="choice choice-other" id="q3-other" onclick="pickOther('q3','q3-other','q3-other-input')">
+        <div class="choice-row"><span class="kbd">D</span>Other — tell us more</div>
+        <div class="other-input-wrap" id="q3-other-wrap">
+          <input type="text" id="q3-other-input" placeholder="Describe your situation..." onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="field-error" id="q3-err">Please select an option.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 4: URL -->
+  <div class="slide" id="slide-4">
+    <div class="q-num">04 →</div>
+    <div class="q-title">What's your current website URL?</div>
+    <div class="q-hint">Drop the link so we can review it. (Optional)</div>
+    <div class="field">
+      <input type="url" id="q4" placeholder="https://yoursite.com"
+        onkeydown="if(event.key==='Enter')goNext()">
+    </div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+      <button class="btn btn-ghost" onclick="goNext()">Skip</button>
+    </div>
+  </div>
+
+  <!-- 5: Goals (multi) -->
+  <div class="slide" id="slide-5">
+    <div class="q-num">05 →</div>
+    <div class="q-title">What are the goals for your new website?</div>
+    <div class="q-multi-note">Select all that apply</div>
+    <div class="choices" id="q5">
+      <div class="choice" onclick="toggle(this,'leads')"><span class="kbd">A</span>Get more leads / attract new clients</div>
+      <div class="choice" onclick="toggle(this,'credibility')"><span class="kbd">B</span>Look professional and build trust</div>
+      <div class="choice" onclick="toggle(this,'sales')"><span class="kbd">C</span>Sell products or book services online</div>
+      <div class="choice" onclick="toggle(this,'portfolio')"><span class="kbd">D</span>Showcase work / portfolio</div>
+      <div class="choice" onclick="toggle(this,'info')"><span class="kbd">E</span>Provide information / answer common questions</div>
+      <div class="choice" onclick="toggle(this,'seo')"><span class="kbd">F</span>Improve Google / SEO visibility</div>
+      <div class="choice choice-other" id="q5-other" onclick="toggleOther(this,'q5-other-wrap','q5-other-input')">
+        <div class="choice-row"><span class="kbd">G</span>Other — describe it</div>
+        <div class="other-input-wrap" id="q5-other-wrap">
+          <input type="text" id="q5-other-input" placeholder="What else are you hoping to achieve?" onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="field-error" id="q5-err">Select at least one goal.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 6: Pages (multi) -->
+  <div class="slide" id="slide-6">
+    <div class="q-num">06 →</div>
+    <div class="q-title">Which pages do you need?</div>
+    <div class="q-multi-note">Select all that apply</div>
+    <div class="choices" id="q6">
+      <div class="choice" onclick="toggle(this,'home')"><span class="kbd">A</span>Home</div>
+      <div class="choice" onclick="toggle(this,'about')"><span class="kbd">B</span>About / Our Story</div>
+      <div class="choice" onclick="toggle(this,'services')"><span class="kbd">C</span>Services / What We Offer</div>
+      <div class="choice" onclick="toggle(this,'portfolio')"><span class="kbd">D</span>Portfolio / Gallery / Case Studies</div>
+      <div class="choice" onclick="toggle(this,'contact')"><span class="kbd">E</span>Contact</div>
+      <div class="choice" onclick="toggle(this,'booking')"><span class="kbd">F</span>Booking / Scheduling</div>
+      <div class="choice" onclick="toggle(this,'shop')"><span class="kbd">G</span>Online Store</div>
+      <div class="choice" onclick="toggle(this,'blog')"><span class="kbd">H</span>Blog / News</div>
+      <div class="choice" onclick="toggle(this,'faq')"><span class="kbd">I</span>FAQ</div>
+      <div class="choice choice-other" id="q6-other" onclick="toggleOther(this,'q6-other-wrap','q6-other-input')">
+        <div class="choice-row"><span class="kbd">J</span>Other pages</div>
+        <div class="other-input-wrap" id="q6-other-wrap">
+          <input type="text" id="q6-other-input" placeholder="List any other pages you need..." onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 7: Branding (multi) -->
+  <div class="slide" id="slide-7">
+    <div class="q-num">07 →</div>
+    <div class="q-title">What branding do you already have?</div>
+    <div class="q-multi-note">Select all that apply</div>
+    <div class="choices" id="q7">
+      <div class="choice" onclick="toggle(this,'logo')"><span class="kbd">A</span>Logo</div>
+      <div class="choice" onclick="toggle(this,'colors')"><span class="kbd">B</span>Brand colors</div>
+      <div class="choice" onclick="toggle(this,'fonts')"><span class="kbd">C</span>Fonts / typography</div>
+      <div class="choice" onclick="toggle(this,'photos')"><span class="kbd">D</span>Professional photos / imagery</div>
+      <div class="choice" onclick="toggle(this,'copy')"><span class="kbd">E</span>Written copy / content</div>
+      <div class="choice" onclick="toggle(this,'none')"><span class="kbd">F</span>None — starting completely fresh</div>
+      <div class="choice choice-other" id="q7-other" onclick="toggleOther(this,'q7-other-wrap','q7-other-input')">
+        <div class="choice-row"><span class="kbd">G</span>Other</div>
+        <div class="other-input-wrap" id="q7-other-wrap">
+          <input type="text" id="q7-other-input" placeholder="Describe what you have..." onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="field-error" id="q7-err">Please select at least one option.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 8: Inspiration -->
+  <div class="slide" id="slide-8">
+    <div class="q-num">08 →</div>
+    <div class="q-title">Any websites you love the look of?</div>
+    <div class="q-hint">Doesn't matter what industry. Just sites with a vibe, style, or feel you like. (Optional)</div>
+    <div class="field">
+      <textarea id="q8" rows="3" placeholder="e.g. I love how clean stripe.com is. Also love the photography on nomadfood.ca."
+        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
+    </div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+      <button class="btn btn-ghost" onclick="goNext()">Skip</button>
+    </div>
+  </div>
+
+  <!-- 9: Features (multi) -->
+  <div class="slide" id="slide-9">
+    <div class="q-num">09 →</div>
+    <div class="q-title">Any special features or functionality?</div>
+    <div class="q-multi-note">Select all that apply</div>
+    <div class="choices" id="q9">
+      <div class="choice" onclick="toggle(this,'contact-form')"><span class="kbd">A</span>Contact / inquiry form</div>
+      <div class="choice" onclick="toggle(this,'live-chat')"><span class="kbd">B</span>Live chat</div>
+      <div class="choice" onclick="toggle(this,'booking')"><span class="kbd">C</span>Online booking / appointment scheduler</div>
+      <div class="choice" onclick="toggle(this,'payments')"><span class="kbd">D</span>Online payments</div>
+      <div class="choice" onclick="toggle(this,'gallery')"><span class="kbd">E</span>Photo / video gallery</div>
+      <div class="choice" onclick="toggle(this,'map')"><span class="kbd">F</span>Map / location embed</div>
+      <div class="choice" onclick="toggle(this,'multilang')"><span class="kbd">G</span>Multiple languages</div>
+      <div class="choice" onclick="toggle(this,'nothing')"><span class="kbd">H</span>Nothing special — keep it simple</div>
+      <div class="choice choice-other" id="q9-other" onclick="toggleOther(this,'q9-other-wrap','q9-other-input')">
+        <div class="choice-row"><span class="kbd">I</span>Other</div>
+        <div class="other-input-wrap" id="q9-other-wrap">
+          <input type="text" id="q9-other-input" placeholder="Describe the feature..." onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 10: Timeline -->
+  <div class="slide" id="slide-10">
+    <div class="q-num">10 →</div>
+    <div class="q-title">What's your timeline?</div>
+    <div class="choices" id="q10">
+      <div class="choice" onclick="pick('q10',this,'urgent')"><span class="kbd">A</span>🔥 ASAP — I needed this yesterday</div>
+      <div class="choice" onclick="pick('q10',this,'month')"><span class="kbd">B</span>Within the next month</div>
+      <div class="choice" onclick="pick('q10',this,'1-3mo')"><span class="kbd">C</span>1–3 months</div>
+      <div class="choice" onclick="pick('q10',this,'planning')"><span class="kbd">D</span>Just planning — no set date yet</div>
+      <div class="choice choice-other" id="q10-other" onclick="pickOther('q10','q10-other','q10-other-input')">
+        <div class="choice-row"><span class="kbd">E</span>Specific date or situation</div>
+        <div class="other-input-wrap" id="q10-other-wrap">
+          <input type="text" id="q10-other-input" placeholder="e.g. Opening for business March 1st" onclick="event.stopPropagation()">
+        </div>
+      </div>
+    </div>
+    <div class="field-error" id="q10-err">Please select an option.</div>
+    <div class="actions">
+      <button class="back-btn" onclick="goPrev()">← Back</button>
+      <button class="btn btn-primary" onclick="goNext()">OK ✓</button>
+    </div>
+  </div>
+
+  <!-- 11: Budget + notes -->
+  <div class="slide" id="slide-11">
+    <div class="q-num">Last one</div>
+    <div class="q-title">What's your budget range?</div>
+    <div class="q-hint">No pressure — helps us scope the project honestly so nobody's time gets wasted.</div>
+    <div class="choices" id="q11">
+      <div class="choice" onclick="pick('q11',this,'<500')"><span class="kbd">A</span>Under $500</div>
+      <div class="choice" onclick="pick('q11',this,'500-1k')"><span class="kbd">B</span>$500 – $1,000</div>
+      <div class="choice" onclick="pick('q11',this,'1-2k')"><span class="kbd">C</span>$1,000 – $2,000</div>
+      <div class="choice" onclick="pick('q11',this,'2k+')"><span class="kbd">D</span>$2,000+</div>
+      <div class="choice" onclick="pick('q11',this,'unsure')"><span class="kbd">E</span>Not sure — open to a quote</div>
+    </div>
+    <div class="field-error" id="q11-err">Please select an option.</div>
+
+    <div style="margin-top:28px">
+      <div class="q-hint" style="margin-bottom:12px">Anything else we should know? <span style="color:var(--text3)">(Optional)</span></div>
+      <textarea id="q11-notes" rows="3" placeholder="Special requirements, things you don't want, or just anything on your mind..."
+        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))doSubmit()"></textarea>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="doSubmit()">Submit →</button>
+      <span class="enter-hint">or <kbd>⌘ Enter</kbd></span>
+    </div>
+  </div>
+
+  <!-- 12: Thank you -->
+  <div class="slide" id="slide-12">
+    <div class="ty-icon">✓</div>
+    <div class="ty-title">You're all set.</div>
+    <p class="ty-body">Thanks for taking the time — we've got everything we need to get started. We'll be in touch shortly to go over it all and talk next steps.</p>
+    <div class="ty-card">🦀 <div><strong>Swift Studio</strong> will reach out within 1 business day.</div></div>
+  </div>
+
+</div></main>
+
+<footer class="footer">
+  <div class="footer-brand">Swift Studio © 2026</div>
+</footer>
+
+<script>
+const TOTAL = 11;
+let cur = 0, goingBack = false;
+const WEBHOOK = '/submit';
+
+function goNext() {
+  if (cur >= 12) return;
+  if (!validate(cur)) return;
+  goingBack = false; cur++; render();
+}
+function goPrev() {
+  if (cur <= 0) return;
+  goingBack = true; cur--; render();
+}
+function render() {
+  document.querySelectorAll('.slide').forEach((s, i) => {
+    s.classList.toggle('active', i === cur);
+    if (i === cur) { s.classList.toggle('back', goingBack); void s.offsetWidth; }
+  });
+  const pct = cur === 0 ? 0 : cur >= 12 ? 100 : Math.round(cur / TOTAL * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  const pill = document.getElementById('stepPill');
+  const show = cur > 0 && cur <= TOTAL;
+  pill.classList.toggle('visible', show);
+  if (show) document.getElementById('stepCurrent').textContent = cur;
+  document.getElementById('btnUp').disabled = cur <= 0;
+  document.getElementById('btnDown').disabled = cur >= 12;
+  const inp = document.querySelector(`#slide-${cur} input:not(.other-input-wrap input), #slide-${cur} textarea`);
+  if (inp) setTimeout(() => inp.focus(), 380);
+}
+
+// Validation
+const requiredSingle = [3, 10, 11];
+const requiredMulti  = [5, 7];
+function validate(n) {
+  clearErr();
+  if (n === 1 && !v('q1').trim()) { showErr('q1-err'); return false; }
+  if (n === 2 && !v('q2').trim()) { showErr('q2-err'); return false; }
+  if (requiredSingle.includes(n)) {
+    if (!document.querySelector(`#q${n} .selected`)) { showErr(`q${n}-err`); return false; }
+  }
+  if (requiredMulti.includes(n)) {
+    if (!document.querySelector(`#q${n} .selected`)) { showErr(`q${n}-err`); return false; }
+  }
+  return true;
+}
+function clearErr() { document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show')); }
+function showErr(id) { const el = document.getElementById(id); if (el) el.classList.add('show'); }
+function v(id) { return document.getElementById(id)?.value || ''; }
+
+// Single-select
+function pick(groupId, el, val) {
+  document.querySelectorAll(`#${groupId} .choice`).forEach(c => {
+    c.classList.remove('selected');
+    const w = c.querySelector('.other-input-wrap');
+    if (w) w.classList.remove('show');
+    delete c.dataset.val;
+  });
+  el.classList.add('selected');
+  el.dataset.val = val;
+}
+function pickOther(groupId, elId, inputId) {
+  const el = document.getElementById(elId);
+  pick(groupId, el, 'other');
+  const wrap = el.querySelector('.other-input-wrap');
+  if (wrap) { wrap.classList.add('show'); setTimeout(() => document.getElementById(inputId)?.focus(), 50); }
+}
+
+// Multi-select
+function toggle(el, val) {
+  el.classList.toggle('selected');
+  el.dataset.val = el.classList.contains('selected') ? val : '';
+}
+function toggleOther(el, wrapId, inputId) {
+  el.classList.toggle('selected');
+  const wrap = document.getElementById(wrapId);
+  if (el.classList.contains('selected')) {
+    el.dataset.val = 'other';
+    wrap.classList.add('show');
+    setTimeout(() => document.getElementById(inputId)?.focus(), 50);
+  } else {
+    delete el.dataset.val;
+    wrap.classList.remove('show');
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  const active = document.querySelector('.slide.active');
+  if (!active) return;
+  const tag = document.activeElement?.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  const choices = active.querySelectorAll('.choice');
+  const map = 'abcdefghij';
+  const idx = map.indexOf(e.key.toLowerCase());
+  if (idx >= 0 && idx < choices.length) { choices[idx].click(); return; }
+  if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+  if (e.key === 'ArrowLeft')   { e.preventDefault(); goPrev(); }
+});
+
+// Submit
+function doSubmit() {
+  if (!validate(11)) return;
+
+  const getMulti = (id) =>
+    [...document.querySelectorAll(`#${id} .selected`)].map(el => {
+      if (el.dataset.val === 'other') {
+        const inp = el.querySelector('input');
+        return inp?.value ? `Other: ${inp.value}` : 'Other';
+      }
+      return el.dataset.val;
+    }).filter(Boolean);
+
+  const getSingle = (id) => {
+    const el = document.querySelector(`#${id} .selected`);
+    if (!el) return '';
+    if (el.dataset.val === 'other') {
+      const inp = el.querySelector('input');
+      return inp?.value ? `Other: ${inp.value}` : 'Other';
+    }
+    return el.dataset.val;
+  };
+
+  const data = {
+    name:        v('q1'),
+    business:    v('q2'),
+    existingSite: getSingle('q3'),
+    siteUrl:     v('q4'),
+    goals:       getMulti('q5'),
+    pages:       getMulti('q6'),
+    branding:    getMulti('q7'),
+    inspiration: v('q8'),
+    features:    getMulti('q9'),
+    timeline:    getSingle('q10'),
+    budget:      getSingle('q11'),
+    notes:       v('q11-notes'),
+    source:      new URLSearchParams(location.search).get('client') || 'direct',
+    channel:     new URLSearchParams(location.search).get('channel') || '',
+    submittedAt: new Date().toISOString()
+  };
+
+  // Discord webhook
+  const labelMap = {
+    // site
+    'yes-outdated':'Yes — needs full redo','yes-ok':'Yes — minor improvements','no':'No website yet',
+    // goals
+    leads:'Get more leads',credibility:'Look professional',sales:'Sell online',
+    portfolio:'Showcase work',info:'Informational',seo:'Improve SEO',
+    // branding
+    logo:'Logo',colors:'Brand colors',fonts:'Fonts',photos:'Photography',copy:'Written copy',none:'None — starting fresh',
+    // features
+    'contact-form':'Contact form','live-chat':'Live chat',booking:'Online booking',
+    payments:'Payments',gallery:'Gallery',map:'Map embed',multilang:'Multi-language',nothing:'Keep it simple',
+    // timeline
+    urgent:'🔥 ASAP','month':'Within a month','1-3mo':'1–3 months',planning:'Just planning',
+    // budget
+    '<500':'Under $500','500-1k':'$500–$1k','1-2k':'$1k–$2k','2k+':'$2k+',unsure:'Not sure / get a quote',
+    // pages
+    home:'Home',about:'About',services:'Services',contact:'Contact',shop:'Online Store',blog:'Blog',faq:'FAQ',
+  };
+  const label = (v) => labelMap[v] || v;
+  const labelList = (arr) => arr.map(label).join(', ') || '—';
+
+  const embed = {
+    title: `📋 New Onboarding Submission — ${data.name}`,
+    color: 0x2563eb,
+    fields: [
+      { name: '👤 Name', value: data.name, inline: true },
+      { name: '📎 Source', value: data.source, inline: true },
+      { name: '🏢 Business', value: data.business || '—', inline: false },
+      { name: '🌐 Existing Site', value: label(data.existingSite) || '—', inline: true },
+      { name: '🔗 URL', value: data.siteUrl || '—', inline: true },
+      { name: '🎯 Goals', value: labelList(data.goals), inline: false },
+      { name: '📄 Pages', value: labelList(data.pages), inline: false },
+      { name: '🎨 Branding', value: labelList(data.branding), inline: false },
+      { name: '⚙️ Features', value: labelList(data.features), inline: false },
+      { name: '✨ Inspiration', value: data.inspiration || '—', inline: false },
+      { name: '⏱️ Timeline', value: label(data.timeline) || '—', inline: true },
+      { name: '💰 Budget', value: label(data.budget) || '—', inline: true },
+      { name: '📝 Notes', value: data.notes || '—', inline: false },
+    ],
+    footer: { text: `Swift Studio Onboarding • ${new Date().toLocaleString()}` }
+  };
+
+  fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(console.error);
+
+  cur = 12; render();
+}
+
+// Pre-fill name from URL param
+const clientParam = new URLSearchParams(location.search).get('client');
+if (clientParam) {
+  const q1 = document.getElementById('q1');
+  if (q1) q1.value = clientParam.charAt(0).toUpperCase() + clientParam.slice(1);
+}
+
+render();
+</script>
+</body>
+</html>
