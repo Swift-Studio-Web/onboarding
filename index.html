@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Swift Studio — New Client Onboarding</title>
+<title>Swift Studio: New Client Onboarding</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="description" content="Tell us about your project. We'll take it from here.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Outfit:wght@300;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,10 +20,10 @@
   --text: #111111;
   --text2: #555555;
   --text3: #aaaaaa;
-  --accent: #2563eb;
-  --accent-bg: #eff6ff;
-  --accent-border: #bfdbfe;
-  --accent-light: #1d4ed8;
+  --accent: #23AE7D;
+  --accent-bg: #f0fdf7;
+  --accent-border: #a7f3d8;
+  --accent-light: #1a8f65;
   --green: #16a34a;
   --green-bg: #f0fdf4;
   --font: 'DM Sans', system-ui, sans-serif;
@@ -48,7 +49,7 @@ body {
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  background: linear-gradient(90deg, var(--accent), #71DBB0);
   transition: width 0.5s var(--ease);
 }
 
@@ -63,9 +64,7 @@ body {
   border-bottom: 1px solid var(--border);
   z-index: 100;
 }
-.logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
-.logo-main { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
-.logo-sub { font-size: 7.5px; font-weight: 600; letter-spacing: 4px; color: var(--text3); margin-top: 3px; }
+.logo { display: flex; flex-direction: row; align-items: baseline; gap: 0.35rem; text-decoration: none; }
 .step-pill {
   background: var(--surface); border: 1px solid var(--border2);
   border-radius: 20px; padding: 5px 14px;
@@ -334,8 +333,21 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
 
 <header class="topbar">
   <a href="#" class="logo">
-    <span class="logo-main">Swift</span>
-    <span class="logo-sub">S T U D I O</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 90 235 65" style="width:140px;height:auto">
+      <path d="m244.1 121.2c-31.34 12.69-81.12 26.2-134.4 28.68-37.43 1.72-73.78 1.45-92.74-9.23-8.86-5.7-7.57-11.9-2.97-17.44-0.24 1.6-0.03 3.28 0.66 4.87 6.21 14.17 40.82 18.1 82.54 16.38 33.61-1.33 66.73-6.64 102-13.29 1.74-0.35 1.61 1.76 0.4 2.16-27.08 7.19-57.68 12.87-99.43 14.43-36.07 1.33-71.57-1.56-85.18-13.63-4.57-4.1-4.16-9.26-1.14-13.61-2.15 0.94-3.76 2.09-4.88 3.38-5.17 6.12-5.81 16.09 5.9 22.5 13.99 8.56 41.3 9.83 66 8.77 45.89-2.02 102-11.52 162.7-31.4 2.1-0.72 1.89-3.09 0.49-2.57z" fill="#23AE7D"/>
+      <path d="m25.99 110.1c-6.21 2.76-10.25 6.41-11.28 10.09-1.44 5.42 2.28 9.13 8.67 12.12 16.44 7.97 47.86 8.67 76.41 7.42 18.92-0.82 38.13-2.42 63.5-5.87 2.18-0.38 1.1-2.93-0.61-2.52-17.89 3.49-34.69 5.1-62.5 5.42-29.11 0.35-52.72-2.15-66.87-7.35-9.4-3.55-12.67-6.42-10.5-11.47 0.97-1.82 3.3-3.56 4.25-4.98 0.9-1.37 0.23-3.47-1.07-2.86z" fill="#71DBB0"/>
+      <path d="m32.2 117.9 2.16-4.6c2.33 1.62 5.73 2.72 8.99 2.72 3.12 0 4.34-0.93 4.34-2.26 0-4.15-14.47-1.13-14.47-10.09 0-4.18 3.47-7.31 10.32-7.31 3.18 0 6.27 0.7 8.67 2.11l-1.99 4.63c-2.3-1.26-4.67-1.86-6.73-1.86-3.12 0-4.31 1.1-4.31 2.47 0 4.08 14.47 1.09 14.47 9.94 0 4.08-3.47 7.25-10.34 7.25-3.85 0-7.74-1.12-11.11-3z" fill="#000"/>
+      <path d="m83.24 102.5-6.33 17.42h-5.29l-3.96-10.55-4.12 10.55h-4.26l-6.3-17.42h5.26l4.15 11.77 4.34-11.77h4.08l4.22 11.77 4.3-11.77h3.91z" fill="#000"/>
+      <path d="m85.28 96.92c0-2.06 1.44-3.32 3.43-3.32s3.43 1.26 3.43 3.18c0 2.03-1.44 3.33-3.43 3.33s-3.43-1.3-3.43-3.19zm0.5 5.39h5.73v17.42h-5.73v-17.42z" fill="#000"/>
+      <path d="m102.1 102.2v0.55h4.44v4.01h-4.3v12.86h-5.5v-12.86h-2.77v-4.01h2.77v-0.69c0-4.31 2.33-6.97 7-6.97 1.54 0 3.16 0.34 4.19 1.04l-1.1 3.97c-0.63-0.44-1.42-0.68-2.25-0.68-1.55 0-2.48 0.89-2.48 2.78z" fill="#000"/>
+      <path d="m120.3 119c-1.09 0.82-2.57 1.07-4.22 1.07-4.34 0-6.54-2.23-6.54-6.45v-6.93h-2.77v-4.01h2.77v-4.11h5.73v4.11h4.3v4.01h-4.3v6.86c0 1.26 0.76 2.02 1.98 2.02 0.69 0 1.39-0.25 1.93-0.66l1.12 4.09z" fill="#000"/>
+      <path d="m130.7 117.2 1.03-2.1c1.92 1.79 5.14 3.05 8.47 3.05 4.6 0 6.59-1.89 6.59-4.26 0-6.4-15.09-2.28-15.09-10.85 0-3.57 2.87-6.49 9.1-6.49 2.8 0 5.67 0.8 7.7 2.17l-0.89 2.2c-2.17-1.41-4.71-2.1-6.81-2.1-4.47 0-6.43 1.99-6.43 4.33 0 6.4 13.59 2.35 13.59 10.66 0 3.57-2.94 6.44-9.2 6.44-3.09 0-6.49-1.16-8.06-3.05z" fill="#0A0B09"/>
+      <path d="m161.9 118.8c-0.96 0.9-2.4 1.31-3.84 1.31-3.44 0-5.36-1.99-5.36-5.36v-9.97h-2.63v-2.09h2.63v-4.11h2.37v4.11h5.22v2.09h-5.22v9.83c0 2.3 1.19 3.49 3.32 3.49 1.06 0 2.09-0.34 2.85-1.01l0.66 1.71z" fill="#0A0B09"/>
+      <path d="m180.8 102.7v17.21h-2.27v-3.19c-1.33 2.27-3.63 3.46-6.5 3.46-4.67 0-7.24-2.54-7.24-7.49v-9.99h2.37v9.75c0 3.81 1.89 5.7 5.26 5.7 3.64 0 6.01-2.37 6.01-6.38v-9.07h2.37z" fill="#0A0B09"/>
+      <path d="m202.5 95.4v24.53h-2.3v-3.57c-1.48 2.54-3.98 3.84-6.97 3.84-5.26 0-8.97-3.67-8.97-8.93 0-5.25 3.71-8.86 8.97-8.86 2.87 0 5.34 1.26 6.85 3.66v-10.67h2.42zm-2.37 15.87c0-4.21-2.87-6.95-6.69-6.95-3.86 0-6.73 2.74-6.73 6.95 0 4.22 2.87 6.95 6.73 6.95 3.82 0 6.69-2.73 6.69-6.95z" fill="#0A0B09"/>
+      <path d="m208.7 97.06c0-1.03 0.86-1.89 1.96-1.89 1.09 0 1.95 0.79 1.95 1.82 0 1.1-0.83 1.92-1.95 1.92-1.1 0-1.96-0.82-1.96-1.85zm0.63 5.66h1.62v17.21h-1.62v-17.21z" fill="#0A0B09"/>
+      <path d="m215.4 111.3c0-5.25 3.82-8.86 9.11-8.86s9.07 3.61 9.07 8.86c0 5.26-3.78 8.93-9.07 8.93s-9.11-3.67-9.11-8.93zm15.74 0c0-4.21-2.87-6.95-6.69-6.95-3.85 0-6.72 2.74-6.72 6.95 0 4.22 2.87 6.95 6.72 6.95 3.82 0 6.69-2.73 6.69-6.95z" fill="#0A0B09"/>
+    </svg>
   </a>
   <div class="step-pill" id="stepPill"><span id="stepCurrent">1</span> of 11</div>
 </header>
@@ -346,7 +358,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
   <div class="slide active" id="slide-0">
     <div class="eyebrow">New Client Onboarding</div>
     <h1 class="welcome-h1">Let's build something<br><em>great together.</em></h1>
-    <p class="welcome-body">A few quick questions so we understand your business and what you're looking for. No fluff — just the essentials.</p>
+    <p class="welcome-body">A few quick questions so we understand your business and what you're looking for.</p>
     <div class="welcome-chips">
       <div class="chip"><div class="chip-dot"></div>11 questions</div>
       <div class="chip">⏱ ~3 minutes</div>
@@ -364,7 +376,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-title">What's your name?</div>
     <div class="q-hint">First name is fine.</div>
     <div class="field">
-      <input type="text" id="q1" placeholder="e.g. Alex" autocomplete="given-name"
+      <input type="text" id="q1" placeholder="e.g. Alex" autocomplete="off"
         onkeydown="if(event.key==='Enter')goNext()">
     </div>
     <div class="field-error" id="q1-err">Please enter your name.</div>
@@ -379,10 +391,10 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
   <div class="slide" id="slide-2">
     <div class="q-num">02 →</div>
     <div class="q-title">What's your business called, and what do you do?</div>
-    <div class="q-hint">Give us the quick pitch — name, what you do, who you serve.</div>
+    <div class="q-hint">Give us the quick pitch, name, what you do, who you serve.</div>
     <div class="field">
-      <textarea id="q2" rows="3" placeholder="e.g. Peak Landscaping — we design and maintain residential gardens in Calgary."
-        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
+      <textarea id="q2" rows="3" placeholder="e.g. Peak Landscaping, we design and maintain residential gardens in Calgary."
+        autocomplete="off" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
     </div>
     <div class="field-error" id="q2-err">Tell us a bit about your business.</div>
     <div class="actions">
@@ -397,13 +409,13 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-num">03 →</div>
     <div class="q-title">Do you have an existing website?</div>
     <div class="choices" id="q3">
-      <div class="choice" onclick="pick('q3',this,'yes-outdated')"><span class="kbd">A</span>Yes — but it's outdated and needs a full redo</div>
-      <div class="choice" onclick="pick('q3',this,'yes-ok')"><span class="kbd">B</span>Yes — it's okay but could use improvements</div>
-      <div class="choice" onclick="pick('q3',this,'no')"><span class="kbd">C</span>No — starting from scratch</div>
+      <div class="choice" onclick="pick('q3',this,'yes-outdated')"><span class="kbd">A</span>Yes, but it's outdated and needs a full redo</div>
+      <div class="choice" onclick="pick('q3',this,'yes-ok')"><span class="kbd">B</span>Yes, it's okay but could use improvements</div>
+      <div class="choice" onclick="pick('q3',this,'no')"><span class="kbd">C</span>No, starting from scratch</div>
       <div class="choice choice-other" id="q3-other" onclick="pickOther('q3','q3-other','q3-other-input')">
-        <div class="choice-row"><span class="kbd">D</span>Other — tell us more</div>
+        <div class="choice-row"><span class="kbd">D</span>Other, tell us more</div>
         <div class="other-input-wrap" id="q3-other-wrap">
-          <input type="text" id="q3-other-input" placeholder="Describe your situation..." onclick="event.stopPropagation()">
+          <input type="text" id="q3-other-input" placeholder="Describe your situation..." autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -420,7 +432,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-title">What's your current website URL?</div>
     <div class="q-hint">Drop the link so we can review it. (Optional)</div>
     <div class="field">
-      <input type="url" id="q4" placeholder="https://yoursite.com"
+      <input type="url" id="q4" placeholder="https://yoursite.com" autocomplete="off"
         onkeydown="if(event.key==='Enter')goNext()">
     </div>
     <div class="actions">
@@ -443,9 +455,9 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
       <div class="choice" onclick="toggle(this,'info')"><span class="kbd">E</span>Provide information / answer common questions</div>
       <div class="choice" onclick="toggle(this,'seo')"><span class="kbd">F</span>Improve Google / SEO visibility</div>
       <div class="choice choice-other" id="q5-other" onclick="toggleOther(this,'q5-other-wrap','q5-other-input')">
-        <div class="choice-row"><span class="kbd">G</span>Other — describe it</div>
+        <div class="choice-row"><span class="kbd">G</span>Other, describe it</div>
         <div class="other-input-wrap" id="q5-other-wrap">
-          <input type="text" id="q5-other-input" placeholder="What else are you hoping to achieve?" onclick="event.stopPropagation()">
+          <input type="text" id="q5-other-input" placeholder="What else are you hoping to achieve?" autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -474,7 +486,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
       <div class="choice choice-other" id="q6-other" onclick="toggleOther(this,'q6-other-wrap','q6-other-input')">
         <div class="choice-row"><span class="kbd">J</span>Other pages</div>
         <div class="other-input-wrap" id="q6-other-wrap">
-          <input type="text" id="q6-other-input" placeholder="List any other pages you need..." onclick="event.stopPropagation()">
+          <input type="text" id="q6-other-input" placeholder="List any other pages you need..." autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -490,16 +502,16 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-title">What branding do you already have?</div>
     <div class="q-multi-note">Select all that apply</div>
     <div class="choices" id="q7">
-      <div class="choice" onclick="toggle(this,'logo')"><span class="kbd">A</span>Logo</div>
-      <div class="choice" onclick="toggle(this,'colors')"><span class="kbd">B</span>Brand colors</div>
-      <div class="choice" onclick="toggle(this,'fonts')"><span class="kbd">C</span>Fonts / typography</div>
-      <div class="choice" onclick="toggle(this,'photos')"><span class="kbd">D</span>Professional photos / imagery</div>
-      <div class="choice" onclick="toggle(this,'copy')"><span class="kbd">E</span>Written copy / content</div>
-      <div class="choice" onclick="toggle(this,'none')"><span class="kbd">F</span>None — starting completely fresh</div>
-      <div class="choice choice-other" id="q7-other" onclick="toggleOther(this,'q7-other-wrap','q7-other-input')">
+      <div class="choice" onclick="toggleClearExclusive(this,'logo','q7','none')"><span class="kbd">A</span>Logo</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'colors','q7','none')"><span class="kbd">B</span>Brand colors</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'fonts','q7','none')"><span class="kbd">C</span>Fonts / typography</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'photos','q7','none')"><span class="kbd">D</span>Professional photos / imagery</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'copy','q7','none')"><span class="kbd">E</span>Written copy / content</div>
+      <div class="choice" onclick="toggleExclusive(this,'none','q7')"><span class="kbd">F</span>None, starting completely fresh</div>
+      <div class="choice choice-other" id="q7-other" onclick="clearExclusive('q7','none');toggleOther(this,'q7-other-wrap','q7-other-input')">
         <div class="choice-row"><span class="kbd">G</span>Other</div>
         <div class="other-input-wrap" id="q7-other-wrap">
-          <input type="text" id="q7-other-input" placeholder="Describe what you have..." onclick="event.stopPropagation()">
+          <input type="text" id="q7-other-input" placeholder="Describe what you have..." autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -517,7 +529,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-hint">Doesn't matter what industry. Just sites with a vibe, style, or feel you like. (Optional)</div>
     <div class="field">
       <textarea id="q8" rows="3" placeholder="e.g. I love how clean stripe.com is. Also love the photography on nomadfood.ca."
-        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
+        autocomplete="off" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))goNext()"></textarea>
     </div>
     <div class="actions">
       <button class="back-btn" onclick="goPrev()">← Back</button>
@@ -532,18 +544,18 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-title">Any special features or functionality?</div>
     <div class="q-multi-note">Select all that apply</div>
     <div class="choices" id="q9">
-      <div class="choice" onclick="toggle(this,'contact-form')"><span class="kbd">A</span>Contact / inquiry form</div>
-      <div class="choice" onclick="toggle(this,'live-chat')"><span class="kbd">B</span>Live chat</div>
-      <div class="choice" onclick="toggle(this,'booking')"><span class="kbd">C</span>Online booking / appointment scheduler</div>
-      <div class="choice" onclick="toggle(this,'payments')"><span class="kbd">D</span>Online payments</div>
-      <div class="choice" onclick="toggle(this,'gallery')"><span class="kbd">E</span>Photo / video gallery</div>
-      <div class="choice" onclick="toggle(this,'map')"><span class="kbd">F</span>Map / location embed</div>
-      <div class="choice" onclick="toggle(this,'multilang')"><span class="kbd">G</span>Multiple languages</div>
-      <div class="choice" onclick="toggle(this,'nothing')"><span class="kbd">H</span>Nothing special — keep it simple</div>
-      <div class="choice choice-other" id="q9-other" onclick="toggleOther(this,'q9-other-wrap','q9-other-input')">
+      <div class="choice" onclick="toggleClearExclusive(this,'contact-form','q9','nothing')"><span class="kbd">A</span>Contact / inquiry form</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'live-chat','q9','nothing')"><span class="kbd">B</span>Live chat</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'booking','q9','nothing')"><span class="kbd">C</span>Online booking / appointment scheduler</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'payments','q9','nothing')"><span class="kbd">D</span>Online payments</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'gallery','q9','nothing')"><span class="kbd">E</span>Photo / video gallery</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'map','q9','nothing')"><span class="kbd">F</span>Map / location embed</div>
+      <div class="choice" onclick="toggleClearExclusive(this,'multilang','q9','nothing')"><span class="kbd">G</span>Multiple languages</div>
+      <div class="choice" onclick="toggleExclusive(this,'nothing','q9')"><span class="kbd">H</span>Nothing special, keep it simple</div>
+      <div class="choice choice-other" id="q9-other" onclick="clearExclusive('q9','nothing');toggleOther(this,'q9-other-wrap','q9-other-input')">
         <div class="choice-row"><span class="kbd">I</span>Other</div>
         <div class="other-input-wrap" id="q9-other-wrap">
-          <input type="text" id="q9-other-input" placeholder="Describe the feature..." onclick="event.stopPropagation()">
+          <input type="text" id="q9-other-input" placeholder="Describe the feature..." autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -558,14 +570,14 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
     <div class="q-num">10 →</div>
     <div class="q-title">What's your timeline?</div>
     <div class="choices" id="q10">
-      <div class="choice" onclick="pick('q10',this,'urgent')"><span class="kbd">A</span>🔥 ASAP — I needed this yesterday</div>
+      <div class="choice" onclick="pick('q10',this,'urgent')"><span class="kbd">A</span>🔥 ASAP, I needed this yesterday</div>
       <div class="choice" onclick="pick('q10',this,'month')"><span class="kbd">B</span>Within the next month</div>
       <div class="choice" onclick="pick('q10',this,'1-3mo')"><span class="kbd">C</span>1–3 months</div>
-      <div class="choice" onclick="pick('q10',this,'planning')"><span class="kbd">D</span>Just planning — no set date yet</div>
+      <div class="choice" onclick="pick('q10',this,'planning')"><span class="kbd">D</span>Just planning, no set date yet</div>
       <div class="choice choice-other" id="q10-other" onclick="pickOther('q10','q10-other','q10-other-input')">
         <div class="choice-row"><span class="kbd">E</span>Specific date or situation</div>
         <div class="other-input-wrap" id="q10-other-wrap">
-          <input type="text" id="q10-other-input" placeholder="e.g. Opening for business March 1st" onclick="event.stopPropagation()">
+          <input type="text" id="q10-other-input" placeholder="e.g. Opening for business March 1st" autocomplete="off" onclick="event.stopPropagation()">
         </div>
       </div>
     </div>
@@ -580,20 +592,21 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
   <div class="slide" id="slide-11">
     <div class="q-num">Last one</div>
     <div class="q-title">What's your budget range?</div>
-    <div class="q-hint">No pressure — helps us scope the project honestly so nobody's time gets wasted.</div>
+    <div class="q-hint">No pressure, helps us scope the project honestly so nobody's time gets wasted.</div>
     <div class="choices" id="q11">
-      <div class="choice" onclick="pick('q11',this,'<500')"><span class="kbd">A</span>Under $500</div>
-      <div class="choice" onclick="pick('q11',this,'500-1k')"><span class="kbd">B</span>$500 – $1,000</div>
-      <div class="choice" onclick="pick('q11',this,'1-2k')"><span class="kbd">C</span>$1,000 – $2,000</div>
-      <div class="choice" onclick="pick('q11',this,'2k+')"><span class="kbd">D</span>$2,000+</div>
-      <div class="choice" onclick="pick('q11',this,'unsure')"><span class="kbd">E</span>Not sure — open to a quote</div>
+      <div class="choice" onclick="pick('q11',this,'free-offer')"><span class="kbd">A</span>Complimentary (Swift Studio offer)</div>
+      <div class="choice" onclick="pick('q11',this,'<500')"><span class="kbd">B</span>Under $500</div>
+      <div class="choice" onclick="pick('q11',this,'500-1k')"><span class="kbd">C</span>$500 – $1,000</div>
+      <div class="choice" onclick="pick('q11',this,'1-2k')"><span class="kbd">D</span>$1,000 – $2,000</div>
+      <div class="choice" onclick="pick('q11',this,'2k+')"><span class="kbd">E</span>$2,000+</div>
+      <div class="choice" onclick="pick('q11',this,'unsure')"><span class="kbd">F</span>Not sure, open to a quote</div>
     </div>
     <div class="field-error" id="q11-err">Please select an option.</div>
 
     <div style="margin-top:28px">
       <div class="q-hint" style="margin-bottom:12px">Anything else we should know? <span style="color:var(--text3)">(Optional)</span></div>
       <textarea id="q11-notes" rows="3" placeholder="Special requirements, things you don't want, or just anything on your mind..."
-        onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))doSubmit()"></textarea>
+        autocomplete="off" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))doSubmit()"></textarea>
     </div>
 
     <div class="actions">
@@ -606,7 +619,7 @@ input::placeholder, textarea::placeholder { color: var(--text3); }
   <div class="slide" id="slide-12">
     <div class="ty-icon">✓</div>
     <div class="ty-title">You're all set.</div>
-    <p class="ty-body">Thanks for taking the time — we've got everything we need to get started. We'll be in touch shortly to go over it all and talk next steps.</p>
+    <p class="ty-body">Thanks for taking the time, we've got everything we need to get started. We'll be in touch shortly to go over it all and talk next steps.</p>
     <div class="ty-card">🦀 <div><strong>Swift Studio</strong> will reach out within 1 business day.</div></div>
   </div>
 
@@ -689,6 +702,32 @@ function toggle(el, val) {
   el.classList.toggle('selected');
   el.dataset.val = el.classList.contains('selected') ? val : '';
 }
+// Exclusive option (e.g. "None"): selects itself and deselects everything else in the group
+function toggleExclusive(el, val, groupId) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('#' + groupId + ' .choice').forEach(c => {
+    c.classList.remove('selected');
+    c.dataset.val = '';
+  });
+  if (!wasSelected) {
+    el.classList.add('selected');
+    el.dataset.val = val;
+  }
+}
+// Clears the exclusive "none" sibling from a group without toggling anything
+function clearExclusive(groupId, exclusiveVal) {
+  document.querySelectorAll('#' + groupId + ' .choice').forEach(c => {
+    if (c.dataset.val === exclusiveVal) {
+      c.classList.remove('selected');
+      c.dataset.val = '';
+    }
+  });
+}
+// Regular option that clears the exclusive "none" sibling when selected
+function toggleClearExclusive(el, val, groupId, exclusiveVal) {
+  clearExclusive(groupId, exclusiveVal);
+  toggle(el, val);
+}
 function toggleOther(el, wrapId, inputId) {
   el.classList.toggle('selected');
   const wrap = document.getElementById(wrapId);
@@ -760,19 +799,19 @@ function doSubmit() {
   // Discord webhook
   const labelMap = {
     // site
-    'yes-outdated':'Yes — needs full redo','yes-ok':'Yes — minor improvements','no':'No website yet',
+    'yes-outdated':'Yes, needs full redo','yes-ok':'Yes, minor improvements','no':'No website yet',
     // goals
     leads:'Get more leads',credibility:'Look professional',sales:'Sell online',
     portfolio:'Showcase work',info:'Informational',seo:'Improve SEO',
     // branding
-    logo:'Logo',colors:'Brand colors',fonts:'Fonts',photos:'Photography',copy:'Written copy',none:'None — starting fresh',
+    logo:'Logo',colors:'Brand colors',fonts:'Fonts',photos:'Photography',copy:'Written copy',none:'None, starting fresh',
     // features
     'contact-form':'Contact form','live-chat':'Live chat',booking:'Online booking',
     payments:'Payments',gallery:'Gallery',map:'Map embed',multilang:'Multi-language',nothing:'Keep it simple',
     // timeline
     urgent:'🔥 ASAP','month':'Within a month','1-3mo':'1–3 months',planning:'Just planning',
     // budget
-    '<500':'Under $500','500-1k':'$500–$1k','1-2k':'$1k–$2k','2k+':'$2k+',unsure:'Not sure / get a quote',
+    'free-offer':'Complimentary (Swift Studio offer)','<500':'Under $500','500-1k':'$500–$1k','1-2k':'$1k–$2k','2k+':'$2k+',unsure:'Not sure / get a quote',
     // pages
     home:'Home',about:'About',services:'Services',contact:'Contact',shop:'Online Store',blog:'Blog',faq:'FAQ',
   };
@@ -780,7 +819,7 @@ function doSubmit() {
   const labelList = (arr) => arr.map(label).join(', ') || '—';
 
   const embed = {
-    title: `📋 New Onboarding Submission — ${data.name}`,
+    title: `📋 New Onboarding Submission, ${data.name}`,
     color: 0x2563eb,
     fields: [
       { name: '👤 Name', value: data.name, inline: true },
